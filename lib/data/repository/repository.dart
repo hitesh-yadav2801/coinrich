@@ -19,8 +19,9 @@ class Repository {
       return dataModels;
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
-      // Return an empty list in case of an error
+      // Propagate the error by rethrowing it
       return [];
+      throw Exception("Error fetching coins: $error");
     }
   }
 }
