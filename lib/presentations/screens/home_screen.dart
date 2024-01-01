@@ -73,17 +73,19 @@ class _HomeScreenState extends State<HomeScreen> {
               Expanded(
                 child: Consumer<CoinProvider>(
                   builder: (context, value, child) {
-                    return ListView.builder(
-                      itemCount: value.coinsData.length,
-                      itemBuilder: (context, index) {
-                        var coin = value.coinsData[index];
-                        return CurrencyCard(
-                          name: coin.name,
-                          price: coin.quoteModel.usdModel.price.toDouble().truncateToDouble(),
-                          change: coin.quoteModel.usdModel.percentChange_24h.toDouble().truncateToDouble(),
-                          symbol: coin.symbol,
-                          rank: coin.cmcRank,
-                        );
+                    return value.isLoading ?
+                      const Center(child: CircularProgressIndicator())
+                      : ListView.builder(
+                          itemCount: value.coinsData.length,
+                          itemBuilder: (context, index) {
+                            var coin = value.coinsData[index];
+                            return CurrencyCard(
+                              name: coin.name,
+                              price: coin.quoteModel.usdModel.price.toDouble().truncateToDouble(),
+                              change: coin.quoteModel.usdModel.percentChange_24h.toDouble().truncateToDouble(),
+                              symbol: coin.symbol,
+                              rank: coin.cmcRank,
+                            );
                       },
                     );
                   },
